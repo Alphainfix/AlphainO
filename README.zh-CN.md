@@ -12,6 +12,7 @@
 </p>
 
 <p align="center">
+  <a href="https://alphain.app/o/">网站</a> ·
   <a href="https://github.com/Alphainfix/AlphainO">GitHub</a> ·
   <a href="https://github.com/Alphainfix/AlphainO/releases/latest">下载</a> ·
   <a href="https://github.com/Alphainfix">作者：Alphainfix</a>
