@@ -164,6 +164,8 @@ const server = http.createServer((req, res) => {
         const mainCount = seen.filter((r) => Array.isArray(r.tools) && r.tools.length > 0).length;
         // THINK: a reasoning model's stream: thinking before each step (two calls, then one more), then the answer.
         const think = JSON.stringify(lastUser ?? {}).includes('THINK');
+        // SKILL: the answer first loads Obsidian's Markdown skill with read_skill, then writes.
+        const skillAsked = JSON.stringify(lastUser ?? {}).includes('SKILL');
         let toolsSinceUser = 0;
         for (let k = (request.messages ?? []).length - 1; k >= 0 && request.messages[k].role !== 'user'; k -= 1) if (request.messages[k].role === 'tool') toolsSinceUser += 1;
         const chunks = [];
@@ -179,6 +181,12 @@ const server = http.createServer((req, res) => {
         } else if (isMain && think) {
             chunks.push({ choices: [{ index: 0, delta: { reasoning_content: 'I have enough. Let me write a short answer.' } }] });
             chunks.push({ choices: [{ index: 0, delta: { content: 'Your vault has two folders, two notes and no tags.' } }] });
+            chunks.push({ choices: [{ index: 0, delta: {}, finish_reason: 'stop' }] });
+        } else if (isMain && skillAsked && !afterTools) {
+            chunks.push({ choices: [{ index: 0, delta: { tool_calls: [{ index: 0, id: 'call_s1', type: 'function', function: { name: 'read_skill', arguments: '{"name":"obsidian-markdown"}' } }] } }] });
+            chunks.push({ choices: [{ index: 0, delta: {}, finish_reason: 'tool_calls' }] });
+        } else if (isMain && skillAsked) {
+            chunks.push({ choices: [{ index: 0, delta: { content: 'A callout starts with > [!note].' } }] });
             chunks.push({ choices: [{ index: 0, delta: {}, finish_reason: 'stop' }] });
         } else if (!isMain) {
             chunks.push({ choices: [{ index: 0, delta: { content: 'Bees and nectar' } }] });
@@ -297,6 +305,9 @@ const server = http.createServer((req, res) => {
     }
     check('the answer streamed into the view', root.textContent.includes('Bees eat **nectar** and pollen.'));
     check('the question went to the model with the system prompt and the tools', seen[0]?.messages?.[0]?.role === 'system' && JSON.stringify(seen[0].messages).includes('What do bees eat?') && seen[0].model === 'fake-model' && seen[0].stream === true && seen[0].tools.some((tool) => tool.function?.name === 'return_suggestions'));
+    const skillTool = seen[0]?.tools?.find((tool) => tool.function?.name === 'read_skill');
+    const skillNames = ['obsidian-markdown', 'obsidian-bases', 'json-canvas'];
+    check('skills: read_skill is offered with Obsidian’s three skills, and the system prompt lists them', JSON.stringify(skillTool?.function?.parameters?.properties?.name?.enum) === JSON.stringify(skillNames) && skillNames.every((name) => String(seen[0]?.messages?.[0]?.content ?? '').includes(`\`${name}\`: `)));
     await new Promise((r) => setTimeout(r, 400));
     const file = [...files.entries()].find(([f]) => f.startsWith('Agent/.alphaino/conversations/'));
     const saved = file && JSON.parse(file[1]);
@@ -586,6 +597,19 @@ const server = http.createServer((req, res) => {
         }
         const stepRows = [...(thinkRun?.querySelectorAll('.work-stream .alphaino-thinking, .work-stream .alphaino-tool') ?? [])];
         check('steps: thinking rows between the tool rows, each row in the same px-3 frame', stepRows.filter((r) => r.classList.contains('alphaino-thinking')).length === 3 && stepRows.filter((r) => r.classList.contains('alphaino-tool')).length === 3 && stepRows.every((r) => !!r.querySelector(':scope > div > button > .px-3')));
+        // Skills: a question that needs one loads it with read_skill; its instructions go back to the model, and the step says which.
+        await typeInto(rootT, 'Write a SKILL callout');
+        rootT.querySelector('.alphaino-composer button[aria-label="Send message"]').click();
+        for (let i = 0; i < 200 && !(rootT.textContent ?? '').includes('A callout starts with'); i += 1) await new Promise((r) => setTimeout(r, 30));
+        await new Promise((r) => setTimeout(r, 200));
+        const skillRequest = seen.filter((r) => Array.isArray(r.tools)).pop();
+        const skillResult = (skillRequest?.messages ?? []).filter((m) => m.role === 'tool').map((m) => String(m.content)).find((c) => c.includes('"skill":"obsidian-markdown"')) ?? '';
+        check('skills: read_skill hands the model the Markdown skill’s instructions, without the frontmatter', skillResult.includes('"instructions":"# Obsidian Flavored Markdown Skill') && !skillResult.includes('name: obsidian-markdown') && skillResult.includes('references/CALLOUTS.md'));
+        const skillRun = [...rootT.querySelectorAll('.alphaino-run')].pop();
+        skillRun?.querySelector('.work-stream [data-step-group="true"]')?.click();
+        await new Promise((r) => setTimeout(r, 50));
+        if (process.env.DUMP_SKILL) require('node:fs').writeFileSync(process.env.DUMP_SKILL, rootT.outerHTML);
+        check('skills: the step says which skill was loaded, and the answer follows', (skillRun?.textContent ?? '').includes('Loading skill: Obsidian Flavored Markdown') && (skillRun?.textContent ?? '').includes('A callout starts with'));
     }
     // Comments: a thread written through the store shows in the comments view of the open note.
     globalThis.__beesText = noteText;

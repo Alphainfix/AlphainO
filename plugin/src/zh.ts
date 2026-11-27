@@ -153,6 +153,7 @@ export const ZH: Record<string, string> = {
     'Reject all changes': '拒绝全部修改',
     'Editing note': '修改笔记',
     'Creating a note': '新建笔记',
+    'Loading skill': '载入技能',
     'This selection could not be found in the note’s text. Select it in the editor instead.': '在笔记原文里找不到这段选中的文字，请在编辑模式里选中它。',
     'Insert into the open note': '插入到打开的笔记',
     'AlphainO answer': 'AlphainO 的回答',
