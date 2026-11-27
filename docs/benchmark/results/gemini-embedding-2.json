@@ -1,0 +1,709 @@
+{
+ "model": "gemini-embedding-2-int8-512",
+ "vault": {
+  "notes": 18,
+  "pictures": 12
+ },
+ "summary": {
+  "text-en": {
+   "of": 12,
+   "best": 11,
+   "top3": 12,
+   "mrr": 0.958,
+   "obsidian": 0
+  },
+  "text-zh": {
+   "of": 6,
+   "best": 4,
+   "top3": 6,
+   "mrr": 0.833,
+   "obsidian": 0
+  },
+  "picture": {
+   "of": 12,
+   "best": 11,
+   "top3": 12,
+   "mrr": 0.958
+  },
+  "keyword": {
+   "of": 6,
+   "best": 6,
+   "bestHybrid": 6,
+   "obsidian": 6
+  }
+ },
+ "results": [
+  {
+   "id": "bee-text1",
+   "kind": "text",
+   "lang": "en",
+   "query": "How fast does the comb signal stretch per hundred metres of travel across grassland?",
+   "target": "Reading/Honeybee odometer.md",
+   "target_quote": "Over the open meadow the waggle run grows at a steady rate: roughly 95 ms longer for every extra 100 m.",
+   "rank": 1,
+   "top": [
+    "Reading/Honeybee odometer.md",
+    "Meetings/2026-10-07 Journal club.md",
+    "Ideas/Bee tunnel for the open day.md"
+   ],
+   "ranks": {
+    "semantic": 1,
+    "keyword": 1,
+    "hybrid": 1
+   },
+   "obsidian": false
+  },
+  {
+   "id": "bee-text2",
+   "kind": "text",
+   "lang": "en",
+   "query": "Which autumn plant could tempt the workers away from the syrup station?",
+   "target": "Ideas/Bee tunnel for the open day.md",
+   "target_quote": "Risk: once September ends the colony may prefer flowering ivy to the feeder, so run it early in the month.",
+   "rank": 2,
+   "top": [
+    "Personal/Garden log.md",
+    "Ideas/Bee tunnel for the open day.md",
+    "Meetings/2026-10-07 Journal club.md"
+   ],
+   "ranks": {
+    "semantic": 2,
+    "keyword": 8,
+    "hybrid": 3
+   },
+   "obsidian": false
+  },
+  {
+   "id": "bee-text3",
+   "kind": "text",
+   "lang": "zh",
+   "query": "在窄通道里蜜蜂贴着墙飞，这会不会让结果有偏差？",
+   "target": "Meetings/2026-10-07 Journal club.md",
+   "target_quote": "Jonas was not convinced by the tunnel: inside a narrow tunnel the bees fly close to the walls, and that alone makes the scenery slide past faster.",
+   "rank": 2,
+   "top": [
+    "Reading/Honeybee odometer.md",
+    "Meetings/2026-10-07 Journal club.md",
+    "Ideas/Bee tunnel for the open day.md"
+   ],
+   "ranks": {
+    "semantic": 2,
+    "keyword": null,
+    "hybrid": 2
+   },
+   "obsidian": false
+  },
+  {
+   "id": "bee-keyword",
+   "kind": "keyword",
+   "lang": "en",
+   "query": "printed checkerboard plywood",
+   "target": "Ideas/Bee tunnel for the open day.md",
+   "target_quote": "A 6 m plywood corridor lined with a printed checkerboard of 10 cm squares, with the feeder at the far end.",
+   "rank": 1,
+   "top": [
+    "Ideas/Bee tunnel for the open day.md",
+    "Reading/Street trees and block heat.md",
+    "Ideas/Shady walking routes.md"
+   ],
+   "ranks": {
+    "semantic": 1,
+    "keyword": 1,
+    "hybrid": 1
+   },
+   "obsidian": true
+  },
+  {
+   "id": "bee-picture1",
+   "kind": "picture",
+   "lang": "en",
+   "query": "two rising lines on a plot, one much steeper than the other, with a shaded strip around the gentler one",
+   "target": "Attachments/Pasted image 20261003101522.png",
+   "from_alphainz": "bee-odometer-figure5",
+   "rank": 1,
+   "top": [
+    "Attachments/Pasted image 20261003101522.png",
+    "Attachments/Pasted image 20261017142509.png",
+    "Attachments/Pasted image 20261003101740.png"
+   ],
+   "obsidian": null
+  },
+  {
+   "id": "bee-picture2",
+   "kind": "picture",
+   "lang": "zh",
+   "query": "一个圆形的玫瑰图，扇形集中指向右上方的同一个方向",
+   "target": "Attachments/Pasted image 20261003101740.png",
+   "from_alphainz": "bee-odometer-figure6",
+   "rank": 1,
+   "top": [
+    "Attachments/Pasted image 20261003101740.png",
+    "Attachments/Pasted image 20261011090402.png",
+    "Attachments/Pasted image 20261017142218.png"
+   ],
+   "obsidian": null
+  },
+  {
+   "id": "sleep-text1",
+   "kind": "text",
+   "lang": "en",
+   "query": "For those who got the least rest, what fraction of the learned material survived until breakfast?",
+   "target": "Reading/Sleep spindles and memory.md",
+   "target_quote": "Students with under six hours of sleep kept only 71 percent of the pairs they had recalled the evening before.",
+   "from_alphainz": "sleep-memory-text1",
+   "rank": 1,
+   "top": [
+    "Reading/Sleep spindles and memory.md",
+    "Ideas/Exam week sleep log.md",
+    "Meetings/2026-10-14 Journal club.md"
+   ],
+   "ranks": {
+    "semantic": 1,
+    "keyword": 3,
+    "hybrid": 1
+   },
+   "obsidian": false
+  },
+  {
+   "id": "sleep-text2",
+   "kind": "text",
+   "lang": "en",
+   "query": "What limits the home experiment to comparing how much I rest, instead of the fast brain rhythms?",
+   "target": "Ideas/Exam week sleep log.md",
+   "target_quote": "A cheap sleep tracker cannot count spindles, so I can only compare short and long nights.",
+   "rank": 1,
+   "top": [
+    "Ideas/Exam week sleep log.md",
+    "Reading/Sleep spindles and memory.md",
+    "Meetings/2026-10-14 Journal club.md"
+   ],
+   "ranks": {
+    "semantic": 1,
+    "keyword": 8,
+    "hybrid": 3
+   },
+   "obsidian": false
+  },
+  {
+   "id": "sleep-text3",
+   "kind": "text",
+   "lang": "zh",
+   "query": "入睡要花多长时间，会影响第二天还记得多少吗？",
+   "target": "Reading/Sleep spindles and memory.md",
+   "target_quote": "How long it took to fall asleep made no difference to retention.",
+   "from_alphainz": "sleep-memory-text3",
+   "rank": 1,
+   "top": [
+    "Reading/Sleep spindles and memory.md",
+    "Ideas/Exam week sleep log.md",
+    "Meetings/2026-10-14 Journal club.md"
+   ],
+   "ranks": {
+    "semantic": 1,
+    "keyword": null,
+    "hybrid": 1
+   },
+   "obsidian": false
+  },
+  {
+   "id": "sleep-keyword",
+   "kind": "keyword",
+   "lang": "en",
+   "query": "two-channel EEG headband",
+   "target": "Reading/Sleep spindles and memory.md",
+   "target_quote": "Recording: a two-channel EEG headband the students put on themselves.",
+   "from_alphainz": "sleep-memory-keyword4",
+   "rank": 1,
+   "top": [
+    "Reading/Sleep spindles and memory.md",
+    "Ideas/Exam week sleep log.md",
+    "Meetings/2026-10-14 Journal club.md"
+   ],
+   "ranks": {
+    "semantic": 1,
+    "keyword": 1,
+    "hybrid": 1
+   },
+   "obsidian": true
+  },
+  {
+   "id": "sleep-picture1",
+   "kind": "picture",
+   "lang": "en",
+   "query": "three bars of increasing height with small whiskers on top",
+   "target": "Attachments/Pasted image 20261009213305.png",
+   "from_alphainz": "sleep-memory-figure5",
+   "rank": 1,
+   "top": [
+    "Attachments/Pasted image 20261009213305.png",
+    "Attachments/Pasted image 20261003101740.png",
+    "Attachments/Pasted image 20261009213451.png"
+   ],
+   "obsidian": null
+  },
+  {
+   "id": "sleep-picture2",
+   "kind": "picture",
+   "lang": "zh",
+   "query": "像楼梯一样上上下下的阶梯折线图，横轴是一整夜的时间",
+   "target": "Attachments/Pasted image 20261009213451.png",
+   "from_alphainz": "sleep-memory-figure6",
+   "rank": 1,
+   "top": [
+    "Attachments/Pasted image 20261009213451.png",
+    "Attachments/Pasted image 20261009213305.png",
+    "Attachments/Pasted image 20261003101740.png"
+   ],
+   "obsidian": null
+  },
+  {
+   "id": "sourdough-text1",
+   "kind": "text",
+   "lang": "en",
+   "query": "How much sooner does the hottest batch reach twice its starting size compared with the coldest one?",
+   "target": "Reading/Sourdough fermentation temperature.md",
+   "target_quote": "At 30 °C the dough doubled in just under four hours; at 18 °C it took nine.",
+   "rank": 1,
+   "top": [
+    "Reading/Sourdough fermentation temperature.md",
+    "Ideas/Weekend bake plan.md",
+    "Meetings/2026-10-07 Journal club.md"
+   ],
+   "ranks": {
+    "semantic": 1,
+    "keyword": 3,
+    "hybrid": 1
+   },
+   "obsidian": false
+  },
+  {
+   "id": "sourdough-text2",
+   "kind": "text",
+   "lang": "en",
+   "query": "When does the loaf actually go into the hot pot, and how hot?",
+   "target": "Ideas/Weekend bake plan.md",
+   "target_quote": "Cold retard in the fridge overnight, bake Sunday morning at 250 °C in the Dutch oven.",
+   "rank": 1,
+   "top": [
+    "Ideas/Weekend bake plan.md",
+    "Reading/Sourdough fermentation temperature.md",
+    "Personal/Focaccia recipe.md"
+   ],
+   "ranks": {
+    "semantic": 1,
+    "keyword": 17,
+    "hybrid": 7
+   },
+   "obsidian": false
+  },
+  {
+   "id": "sourdough-text3",
+   "kind": "text",
+   "lang": "zh",
+   "query": "为什么面包靠近顶部的地方会有很大的不规则气孔？",
+   "target": "Reading/Sourdough fermentation temperature.md",
+   "target_quote": "Big irregular holes formed only under the top crust, where gas gathered late in the bake.",
+   "from_alphainz": "sourdough-rise-text3",
+   "rank": 1,
+   "top": [
+    "Reading/Sourdough fermentation temperature.md",
+    "Ideas/Weekend bake plan.md",
+    "Meetings/2026-10-07 Journal club.md"
+   ],
+   "ranks": {
+    "semantic": 1,
+    "keyword": null,
+    "hybrid": 1
+   },
+   "obsidian": false
+  },
+  {
+   "id": "sourdough-keyword",
+   "kind": "keyword",
+   "lang": "en",
+   "query": "rye starter hydration",
+   "target": "Reading/Sourdough fermentation temperature.md",
+   "target_quote": "The rye starter was kept at 100 percent hydration and fed twice a day for two weeks before the trials.",
+   "from_alphainz": "sourdough-rise-keyword4",
+   "rank": 1,
+   "top": [
+    "Reading/Sourdough fermentation temperature.md",
+    "Ideas/Weekend bake plan.md",
+    "Meetings/2026-10-07 Journal club.md"
+   ],
+   "ranks": {
+    "semantic": 1,
+    "keyword": 1,
+    "hybrid": 1
+   },
+   "obsidian": true
+  },
+  {
+   "id": "sourdough-picture1",
+   "kind": "picture",
+   "lang": "en",
+   "query": "a cut loaf seen from the side, full of round holes of many sizes, with bigger ones near the top",
+   "target": "Attachments/Pasted image 20261004164012.png",
+   "from_alphainz": "sourdough-rise-figure5",
+   "rank": 1,
+   "top": [
+    "Attachments/Pasted image 20261004164012.png",
+    "Attachments/Pasted image 20261004164230.png",
+    "Attachments/Pasted image 20261003101740.png"
+   ],
+   "obsidian": null
+  },
+  {
+   "id": "sourdough-picture2",
+   "kind": "picture",
+   "lang": "zh",
+   "query": "一条线往上升、另一条线往下降的双纵轴折线图",
+   "target": "Attachments/Pasted image 20261004164230.png",
+   "from_alphainz": "sourdough-rise-figure6",
+   "rank": 1,
+   "top": [
+    "Attachments/Pasted image 20261004164230.png",
+    "Attachments/Pasted image 20261003101740.png",
+    "Attachments/Pasted image 20261019183311.png"
+   ],
+   "obsidian": null
+  },
+  {
+   "id": "feed-text1",
+   "kind": "text",
+   "lang": "en",
+   "query": "What fraction of connections in the network bridged separate reader communities?",
+   "target": "Reading/News feed diversity.md",
+   "target_quote": "Readers sorted into clusters: only 3 percent of the links in the co-reading graph joined different clusters.",
+   "rank": 1,
+   "top": [
+    "Reading/News feed diversity.md",
+    "Ideas/Audit my own reading.md",
+    "Meetings/2026-10-14 Journal club.md"
+   ],
+   "ranks": {
+    "semantic": 1,
+    "keyword": 1,
+    "hybrid": 1
+   },
+   "obsidian": false
+  },
+  {
+   "id": "feed-text2",
+   "kind": "text",
+   "lang": "en",
+   "query": "How do I download a spreadsheet of everything I have read so far?",
+   "target": "Ideas/Audit my own reading.md",
+   "target_quote": "Export the reading-app history as CSV (Settings → Account → Export).",
+   "rank": 1,
+   "top": [
+    "Ideas/Audit my own reading.md",
+    "Reading/News feed diversity.md",
+    "Ideas/Exam week sleep log.md"
+   ],
+   "ranks": {
+    "semantic": 1,
+    "keyword": 4,
+    "hybrid": 1
+   },
+   "obsidian": false
+  },
+  {
+   "id": "feed-text3",
+   "kind": "text",
+   "lang": "zh",
+   "query": "参加研究的人知道自己在被观察吗？这会不会影响结果？",
+   "target": "Meetings/2026-10-14 Journal club.md",
+   "target_quote": "Wen asked whether the volunteers knew they were being studied. They did, which may have changed what they chose to read.",
+   "rank": 1,
+   "top": [
+    "Meetings/2026-10-14 Journal club.md",
+    "Reading/News feed diversity.md",
+    "Reading/Honeybee odometer.md"
+   ],
+   "ranks": {
+    "semantic": 1,
+    "keyword": null,
+    "hybrid": 1
+   },
+   "obsidian": false
+  },
+  {
+   "id": "feed-keyword",
+   "kind": "keyword",
+   "lang": "en",
+   "query": "dwell time",
+   "target": "Reading/News feed diversity.md",
+   "target_quote": "2,400 volunteers, twelve weeks, on a platform whose ranking model was trained on clicks and dwell time, with no term for diversity.",
+   "from_alphainz": "filter-bubbles-keyword4",
+   "rank": 1,
+   "top": [
+    "Reading/News feed diversity.md",
+    "Personal/Commute notes.md",
+    "Reading/Honeybee odometer.md"
+   ],
+   "ranks": {
+    "semantic": 1,
+    "keyword": 1,
+    "hybrid": 1
+   },
+   "obsidian": true
+  },
+  {
+   "id": "feed-picture1",
+   "kind": "picture",
+   "lang": "en",
+   "query": "dots joined by thin lines, falling into three coloured clumps with only a few links between them",
+   "target": "Attachments/Pasted image 20261011090215.png",
+   "from_alphainz": "filter-bubbles-figure5",
+   "rank": 1,
+   "top": [
+    "Attachments/Pasted image 20261011090215.png",
+    "Attachments/Pasted image 20261017142218.png",
+    "Attachments/Pasted image 20261017142509.png"
+   ],
+   "obsidian": null
+  },
+  {
+   "id": "feed-picture2",
+   "kind": "picture",
+   "lang": "zh",
+   "query": "一个方格矩阵，颜色从浅到深，对角线上最深，右边有一个颜色刻度条",
+   "target": "Attachments/Pasted image 20261011090402.png",
+   "from_alphainz": "filter-bubbles-figure6",
+   "rank": 2,
+   "top": [
+    "Attachments/Pasted image 20261017142218.png",
+    "Attachments/Pasted image 20261011090402.png",
+    "Attachments/Pasted image 20261017142509.png"
+   ],
+   "obsidian": null
+  },
+  {
+   "id": "heat-text1",
+   "kind": "text",
+   "lang": "en",
+   "query": "When exactly was the overhead heat scan done, and how dry had the weather been beforehand?",
+   "target": "Reading/Street trees and block heat.md",
+   "target_quote": "The flight was on a cloudless afternoon in late July, 14:40 to 15:25, after four days without rain.",
+   "from_alphainz": "city-heat-text1",
+   "rank": 1,
+   "top": [
+    "Reading/Street trees and block heat.md",
+    "Meetings/2026-10-21 Journal club.md",
+    "Ideas/Shady walking routes.md"
+   ],
+   "ranks": {
+    "semantic": 1,
+    "keyword": 1,
+    "hybrid": 1
+   },
+   "obsidian": false
+  },
+  {
+   "id": "heat-text2",
+   "kind": "text",
+   "lang": "en",
+   "query": "Which way from the train stop to the books building keeps me out of the sun the longest?",
+   "target": "Ideas/Shady walking routes.md",
+   "target_quote": "Route A: station to the library along Weir Street and the Millrace Park edge, about 1.4 km, mostly shaded.",
+   "rank": 1,
+   "top": [
+    "Ideas/Shady walking routes.md",
+    "Meetings/2026-10-21 Journal club.md",
+    "Reading/Street trees and block heat.md"
+   ],
+   "ranks": {
+    "semantic": 1,
+    "keyword": 14,
+    "hybrid": 6
+   },
+   "obsidian": false
+  },
+  {
+   "id": "heat-text3",
+   "kind": "text",
+   "lang": "zh",
+   "query": "新种下的行道树大概要长多少年，树冠才能真正给人行道遮阴？",
+   "target": "Reading/Street trees and block heat.md",
+   "target_quote": "A young street tree needs fifteen to twenty years before its crown shades much of the pavement.",
+   "from_alphainz": "city-heat-text3",
+   "rank": 2,
+   "top": [
+    "Ideas/Shady walking routes.md",
+    "Reading/Street trees and block heat.md",
+    "Meetings/2026-10-21 Journal club.md"
+   ],
+   "ranks": {
+    "semantic": 2,
+    "keyword": null,
+    "hybrid": 2
+   },
+   "obsidian": false
+  },
+  {
+   "id": "heat-keyword",
+   "kind": "keyword",
+   "lang": "en",
+   "query": "bitumen roofs depot",
+   "target": "Reading/Street trees and block heat.md",
+   "target_quote": "The hottest blocks, by the rail yard and the bus depot, had flat bitumen roofs and almost no trees.",
+   "from_alphainz": "city-heat-keyword4",
+   "rank": 1,
+   "top": [
+    "Reading/Street trees and block heat.md",
+    "Meetings/2026-10-21 Journal club.md",
+    "Reading/Orvine delta sediment budget.md"
+   ],
+   "ranks": {
+    "semantic": 1,
+    "keyword": 1,
+    "hybrid": 1
+   },
+   "obsidian": true
+  },
+  {
+   "id": "heat-picture1",
+   "kind": "picture",
+   "lang": "en",
+   "query": "a grid of small squares coloured from pale yellow to dark red, darker towards the lower right, with a green rectangle full of dark dots just left of the middle",
+   "target": "Attachments/Pasted image 20261017142218.png",
+   "from_alphainz": "city-heat-figure5",
+   "rank": 1,
+   "top": [
+    "Attachments/Pasted image 20261017142218.png",
+    "Attachments/Pasted image 20261011090402.png",
+    "Attachments/Pasted image 20261017142509.png"
+   ],
+   "obsidian": null
+  },
+  {
+   "id": "heat-picture2",
+   "kind": "picture",
+   "lang": "zh",
+   "query": "一张散点图，点的颜色从浅黄到深红，整体往右下方走；中间一条深蓝色的下降直线，外面裹着一条浅蓝色的带子，有几个点带绿色的圈",
+   "target": "Attachments/Pasted image 20261017142509.png",
+   "from_alphainz": "city-heat-figure6",
+   "rank": 1,
+   "top": [
+    "Attachments/Pasted image 20261017142509.png",
+    "Attachments/Pasted image 20261017142218.png",
+    "Attachments/Pasted image 20261011090215.png"
+   ],
+   "obsidian": null
+  },
+  {
+   "id": "delta-text1",
+   "kind": "text",
+   "lang": "en",
+   "query": "According to depth soundings, how much of what the river carries gets caught behind the lower barrier?",
+   "target": "Reading/Orvine delta sediment budget.md",
+   "target_quote": "Bathymetric surveys of the Kessel reservoir imply a trap efficiency near 85 percent.",
+   "from_alphainz": "delta-sediment-text1",
+   "rank": 1,
+   "top": [
+    "Reading/Orvine delta sediment budget.md",
+    "Meetings/2026-10-21 Journal club.md",
+    "Ideas/Delta budget class exercise.md"
+   ],
+   "ranks": {
+    "semantic": 1,
+    "keyword": 1,
+    "hybrid": 1
+   },
+   "obsidian": false
+  },
+  {
+   "id": "delta-text2",
+   "kind": "text",
+   "lang": "en",
+   "query": "How will the class be split up, and how long does each team get to pitch its proposal?",
+   "target": "Ideas/Delta budget class exercise.md",
+   "target_quote": "Groups of three; each group presents one option in five minutes.",
+   "rank": 1,
+   "top": [
+    "Ideas/Delta budget class exercise.md",
+    "Ideas/Bee tunnel for the open day.md",
+    "Meetings/2026-10-14 Journal club.md"
+   ],
+   "ranks": {
+    "semantic": 1,
+    "keyword": 1,
+    "hybrid": 1
+   },
+   "obsidian": false
+  },
+  {
+   "id": "delta-text3",
+   "kind": "text",
+   "lang": "zh",
+   "query": "海岸线还在向外长的那几段，都集中在哪里？",
+   "target": "Reading/Orvine delta sediment budget.md",
+   "target_quote": "The few transects that still advance all lie within five kilometres of the Main Pass mouth.",
+   "from_alphainz": "delta-sediment-text3",
+   "rank": 1,
+   "top": [
+    "Reading/Orvine delta sediment budget.md",
+    "Meetings/2026-10-21 Journal club.md",
+    "Meetings/2026-10-14 Journal club.md"
+   ],
+   "ranks": {
+    "semantic": 1,
+    "keyword": null,
+    "hybrid": 1
+   },
+   "obsidian": false
+  },
+  {
+   "id": "delta-keyword",
+   "kind": "keyword",
+   "lang": "en",
+   "query": "flood-control sill Salt Creek",
+   "target": "Reading/Orvine delta sediment budget.md",
+   "target_quote": "Heron Pass has been shoaling for thirty years, and a flood-control sill at the head of Salt Creek lets water in only during big floods.",
+   "from_alphainz": "delta-sediment-keyword4",
+   "rank": 1,
+   "top": [
+    "Reading/Orvine delta sediment budget.md",
+    "Ideas/Delta budget class exercise.md",
+    "Meetings/2026-10-21 Journal club.md"
+   ],
+   "ranks": {
+    "semantic": 1,
+    "keyword": 1,
+    "hybrid": 1
+   },
+   "obsidian": true
+  },
+  {
+   "id": "delta-picture1",
+   "kind": "picture",
+   "lang": "en",
+   "query": "a hand-drawn style plan of a river fanning into three outlets at the sea, with fat arrows of unequal width and a shore traced partly in two colours",
+   "target": "Attachments/Pasted image 20261019183044.png",
+   "from_alphainz": "delta-sediment-figure5",
+   "rank": 1,
+   "top": [
+    "Attachments/Pasted image 20261019183044.png",
+    "Attachments/Pasted image 20261019183311.png",
+    "Attachments/Pasted image 20261003101740.png"
+   ],
+   "obsidian": null
+  },
+  {
+   "id": "delta-picture2",
+   "kind": "picture",
+   "lang": "zh",
+   "query": "一张柱状直方图，左边大多是红色的柱子，右边只有少数几根绿色的柱子，中间有一条竖着的虚线",
+   "target": "Attachments/Pasted image 20261019183311.png",
+   "from_alphainz": "delta-sediment-figure6",
+   "rank": 1,
+   "top": [
+    "Attachments/Pasted image 20261019183311.png",
+    "Attachments/Pasted image 20261017142218.png",
+    "Attachments/Pasted image 20261011090402.png"
+   ],
+   "obsidian": null
+  }
+ ]
+}
