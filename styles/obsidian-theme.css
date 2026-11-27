@@ -1,0 +1,85 @@
+/*
+ * AlphainO as a client of the shared AlphainZ sheets (@beaver/agent-ui theme).
+ *
+ * Those sheets read a set of host colours they never define — the token
+ * contract at the end of agent-ui-tokens.css. Zotero supplies them from its own
+ * theme; here they are supplied from Obsidian's, so every shared component
+ * follows the user's Obsidian theme, light or dark, and any theme they install.
+ * The tag ramps the shared sheet ships with fixed colours are redrawn from the
+ * theme's own hues for the same reason.
+ */
+.alphainz-root {
+  /* The shared utilities are measured in rem against a 13px root; Obsidian's
+     root is its own, so the build rewrites rem to this, which follows the
+     reading font size (13px at Obsidian's default 16px). */
+  --alphainz-rem: calc(var(--font-text-size, 16px) * 0.8125);
+
+  /* Fill scale: text and surfaces, strongest to faintest. */
+  --fill-primary: var(--text-normal);
+  --fill-secondary: var(--text-muted);
+  --fill-tertiary: var(--text-faint);
+  --fill-quarternary: rgba(var(--mono-rgb-100), 0.14);
+  --fill-quinary: rgba(var(--mono-rgb-100), 0.07);
+  --fill-senary: rgba(var(--mono-rgb-100), 0.035);
+
+  /* Materials. */
+  --material-sidepane: var(--background-secondary);
+  --material-background: var(--background-primary);
+  --material-button: var(--interactive-normal);
+  --material-mix-quarternary: var(--background-modifier-hover);
+
+  /* Accents. */
+  --accent-blue: var(--interactive-accent);
+  --accent-green: var(--color-green);
+  --accent-red: var(--color-red);
+  --accent-white: var(--text-on-accent);
+
+  /* Borders and scroll bars. */
+  --color-border50: var(--background-modifier-border);
+  --color-scrollbar: var(--scrollbar-thumb-bg);
+  --color-scrollbar-background: var(--scrollbar-bg);
+
+  /* Tag hues and their ramps, from the theme's palette. */
+  --tag-blue: var(--color-blue);
+  --tag-green: var(--color-green);
+  --tag-orange: var(--color-orange);
+  --tag-purple: var(--color-purple);
+  --tag-red: var(--color-red);
+  --tag-yellow: var(--color-yellow);
+  --tag-blue-primary: rgba(var(--color-blue-rgb), 0.9);
+  --tag-blue-secondary: rgba(var(--color-blue-rgb), 0.55);
+  --tag-blue-tertiary: rgba(var(--color-blue-rgb), 0.3);
+  --tag-blue-quarternary: rgba(var(--color-blue-rgb), 0.12);
+  --tag-blue-quinary: rgba(var(--color-blue-rgb), 0.06);
+  --tag-blue-senary: rgba(var(--color-blue-rgb), 0.03);
+  --tag-green-primary: rgba(var(--color-green-rgb), 0.9);
+  --tag-green-secondary: rgba(var(--color-green-rgb), 0.55);
+  --tag-green-tertiary: rgba(var(--color-green-rgb), 0.3);
+  --tag-green-quarternary: rgba(var(--color-green-rgb), 0.12);
+  --tag-green-quinary: rgba(var(--color-green-rgb), 0.06);
+  --tag-green-senary: rgba(var(--color-green-rgb), 0.03);
+  --tag-orange-primary: rgba(var(--color-orange-rgb), 0.9);
+  --tag-orange-secondary: rgba(var(--color-orange-rgb), 0.55);
+  --tag-orange-tertiary: rgba(var(--color-orange-rgb), 0.3);
+  --tag-orange-quarternary: rgba(var(--color-orange-rgb), 0.12);
+  --tag-orange-quinary: rgba(var(--color-orange-rgb), 0.06);
+  --tag-orange-senary: rgba(var(--color-orange-rgb), 0.03);
+  --tag-purple-primary: rgba(var(--color-purple-rgb), 0.9);
+  --tag-purple-secondary: rgba(var(--color-purple-rgb), 0.55);
+  --tag-purple-tertiary: rgba(var(--color-purple-rgb), 0.3);
+  --tag-purple-quarternary: rgba(var(--color-purple-rgb), 0.12);
+  --tag-purple-quinary: rgba(var(--color-purple-rgb), 0.06);
+  --tag-purple-senary: rgba(var(--color-purple-rgb), 0.03);
+  --tag-red-primary: rgba(var(--color-red-rgb), 0.9);
+  --tag-red-secondary: rgba(var(--color-red-rgb), 0.55);
+  --tag-red-tertiary: rgba(var(--color-red-rgb), 0.3);
+  --tag-red-quarternary: rgba(var(--color-red-rgb), 0.12);
+  --tag-red-quinary: rgba(var(--color-red-rgb), 0.06);
+  --tag-red-senary: rgba(var(--color-red-rgb), 0.03);
+  --tag-yellow-primary: rgba(var(--color-yellow-rgb), 0.9);
+  --tag-yellow-secondary: rgba(var(--color-yellow-rgb), 0.55);
+  --tag-yellow-tertiary: rgba(var(--color-yellow-rgb), 0.3);
+  --tag-yellow-quarternary: rgba(var(--color-yellow-rgb), 0.12);
+  --tag-yellow-quinary: rgba(var(--color-yellow-rgb), 0.06);
+  --tag-yellow-senary: rgba(var(--color-yellow-rgb), 0.03);
+}

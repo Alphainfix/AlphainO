@@ -1,0 +1,10 @@
+{
+  "id": "alphaino",
+  "name": "AlphainO",
+  "version": "0.0.1",
+  "minAppVersion": "1.11.4",
+  "description": "A research assistant in the sidebar, running on your own model and API key.",
+  "author": "Alphainfix",
+  "authorUrl": "https://alphain.app",
+  "isDesktopOnly": true
+}
