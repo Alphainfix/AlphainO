@@ -56,6 +56,7 @@ import { Markdown } from './Markdown';
 import { prepareAnswerMarkdown } from './markdownFixes';
 import type { RunWarning } from '../agent/runTurn';
 import { answerWithSteps } from './chatContent';
+import { skillTitle } from '../skills';
 
 /**
  * AlphainO's own tools, labelled as AlphainZ labels its library tools: a base
@@ -83,6 +84,7 @@ const OWN_TOOL_LABELS: Record<string, string> = {
     resolve_comment: 'Resolving a comment',
     edit_note: 'Editing note',
     create_note: 'Creating a note',
+    read_skill: 'Loading skill',
 };
 
 /** The tools that act on an answer already reached (a comment, an edit, a note): never folded away as work. */
@@ -218,6 +220,14 @@ export function ownToolLabel(part: ToolCallPart): string | null {
             return named(args.note_id) ?? label;
         case 'create_note':
             return quoted(args.title) ?? label;
+        case 'read_skill': {
+            // "Loading skill: Obsidian Bases", and the file when it reads one of the skill's files.
+            const name = skillTitle(args.name);
+            const path = typeof args.file === 'string' ? args.file.trim() : '';
+            const where = path.slice(path.lastIndexOf('/') + 1);
+            if (name && where && !/^skill\.md$/i.test(where)) return t('{label}: {name}, {where}', { label, name, where });
+            return name ? t('{label}: {name}', { label, name }) : label;
+        }
         case 'resolve_comment':
             return args.resolved === false ? t('Reopening a comment') : label;
         default:
@@ -343,6 +353,7 @@ const TOOL_ICONS: Record<string, React.FC<React.SVGProps<SVGSVGElement>>> = {
     search_library_figures: SearchIcon,
     edit_note: PropertyEditIcon,
     create_note: DocumentValidationIcon,
+    read_skill: PuzzleIcon,
 };
 
 function toolIcon(name: string): React.FC<React.SVGProps<SVGSVGElement>> {

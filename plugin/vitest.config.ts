@@ -1,3 +1,4 @@
+import { readFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { defineConfig } from 'vitest/config';
@@ -7,6 +8,17 @@ const shared = path.resolve(here, process.env.ALPHAINZ_PACKAGES ?? './shared/pac
 const sharedI18n = path.resolve(here, process.env.ALPHAINZ_I18N ?? './shared/src/i18n');
 
 export default defineConfig({
+    plugins: [
+        // A Markdown file imports as its text, as esbuild's text loader bundles Obsidian's skills (src/skills).
+        {
+            name: 'markdown-as-text',
+            enforce: 'pre',
+            load(id) {
+                const file = id.split('?')[0];
+                return file.endsWith('.md') ? `export default ${JSON.stringify(readFileSync(file, 'utf8'))};` : null;
+            },
+        },
+    ],
     resolve: {
         alias: [
             { find: /^@beaver\/agent-core\/(.*)$/, replacement: `${shared}/agent-core/src/$1` },

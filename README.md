@@ -82,6 +82,10 @@ they work as one:
 - **Comments on passages.** Comment on any passage from the right-click menu. AlphainO reads every comment
   together with its passage, and can add, answer and resolve them. Each change to a comment is its own small
   file, so comments sync between computers without conflicts.
+- **Obsidian's own formats.** The Markdown, Bases and Canvas skills of Obsidian's official
+  [connectors](https://obsidian.md/help/connectors) are built in, and loaded only when a task needs one: what
+  AlphainO writes into a note uses wikilinks, embeds, callouts and properties the way Obsidian does, it can put a
+  Bases view into a note as a `base` code block, and it reads the `.base` and `.canvas` files in your vault.
 - **Use multiple computers.** Conversations and comments are files in your vault and travel with it
   (Obsidian Sync, iCloud Drive, ...). API keys never leave the computer you entered them on.
 - **In English or Chinese.** The interface follows Obsidian's language.
@@ -209,7 +213,8 @@ npm test
 npm run smoke        # drives the built plugin in a stand-in Obsidian against a fake model server
 ```
 
-The code AlphainO shares with AlphainZ is copied into [`plugin/shared/`](plugin/shared/README.md).
+The code AlphainO shares with AlphainZ is copied into [`plugin/shared/`](plugin/shared/README.md), and Obsidian's
+skills into [`plugin/skills/`](plugin/skills/README.md).
 
 ## Changelog
 
@@ -226,5 +231,7 @@ AlphainZ and Beaver, whose code it shares.
 - [Beaver](https://github.com/jlegewie/beaver-zotero), by Joscha Legewie: the plugin AlphainZ is based on.
 - Orbit Comments: the comment anchors and their file format (MIT; its notice is kept in
   `plugin/src/comments/anchor.ts`).
+- [Obsidian skills](https://github.com/obsidianmd/obsidian-skills), by Steph Ango: the Markdown, Bases and Canvas
+  skills in `plugin/skills/` (MIT; their licence is kept there).
 
 Comparison sources: [Copilot](https://github.com/logancyang/obsidian-copilot), [Claudian](https://github.com/YishenTu/claudian), [Smart Connections](https://github.com/brianpetro/obsidian-smart-connections) and [smartconnections.app](https://smartconnections.app), [YOLO](https://github.com/Lapis0x0/obsidian-yolo); download counts from Obsidian's [community-plugin-stats.json](https://github.com/obsidianmd/obsidian-releases).

@@ -23,6 +23,7 @@ import type { CommentAnchor } from './comments/anchor';
 import type { StateEffect } from '@codemirror/state';
 import type { EditorView } from '@codemirror/view';
 import { SUGGESTIONS_TOOLS, combineToolSets, type ToolSet } from './agent/tools';
+import { SKILL_TOOLS, skillsGuidance } from './skills';
 import { AlphainZClient, zoteroTools, type ZoteroTools } from './zotero';
 import { NoteIndex } from './search';
 import { buildNoteEmbedder, isEmbeddingPreset } from './search/embedder';
@@ -221,6 +222,9 @@ export default class AlphainOPlugin extends Plugin {
             dispatch: createCommentToolDispatcher({ app: this.app, store: this.comments, actor: 'alphaino', getExcludedFolders: () => this.excludedFolders() }),
         }));
         this.promptSections.push(() => COMMENT_GUIDANCE);
+        // Obsidian's skills (src/skills): the system prompt lists them, and read_skill hands over one's instructions.
+        this.toolSets.push(() => SKILL_TOOLS);
+        this.promptSections.push(skillsGuidance);
         this.registerView(VIEW_TYPE_COMMENTS, (leaf) => new CommentsView(leaf, this));
         this.registerEditorExtension(
             commentMarks({ threadsOn: (path) => this.comments.threadsOn(path), openThread: (id) => void this.openThread(id) }),

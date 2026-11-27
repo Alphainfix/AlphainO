@@ -94,11 +94,10 @@ function environment(notes: Record<string, string> = {}): Env {
         getFileCache: (file: { path: string }) => cache[file.path] ?? null,
         getFirstLinkpathDest: (link: string) => {
             const wanted = link.toLowerCase();
-            const found = vault
-                .getMarkdownFiles()
-                .filter((file) => file.basename.toLowerCase() === wanted || file.path.toLowerCase() === `${wanted}.md`)
-                .sort((a, b) => a.path.length - b.path.length);
-            return found[0] ?? null;
+            const notes = vault.getMarkdownFiles().filter((file) => file.basename.toLowerCase() === wanted || file.path.toLowerCase() === `${wanted}.md`);
+            // A link with another extension names that file, as [[Map.canvas]] does in Obsidian.
+            const found = notes.length > 0 ? notes : vault.getFiles().filter((file) => file.extension !== 'md' && (file.name.toLowerCase() === wanted || file.path.toLowerCase() === wanted));
+            return found.sort((a, b) => a.path.length - b.path.length)[0] ?? null;
         },
     };
     const workspace = {
@@ -374,6 +373,57 @@ describe('read_note', () => {
         expect(result.truncated).toBe(true);
         expect(result.next_start_line).toBeUndefined();
         expect(result.note).toContain('only its start is included');
+    });
+});
+
+describe('read_note on bases and canvases', () => {
+    const CANVAS = '{\n\t"nodes":[\n\t\t{"id":"a1","type":"text","text":"Idea","x":0,"y":0,"width":250,"height":60}\n\t],\n\t"edges":[]\n}';
+    const BASE = 'filters:\n  and:\n    - file.hasTag("book")\nviews:\n  - type: table\n    name: Books';
+
+    beforeEach(() => {
+        env.vault.write('Maps/Research.canvas', CANVAS, { silent: true });
+        env.vault.write('Reading.base', `${BASE}\n`, { silent: true });
+    });
+
+    it('reads a canvas as its JSON, named by its path, a [[link]] or its name with the extension', async () => {
+        for (const note_id of ['Maps/Research.canvas', '[[Maps/Research.canvas]]', 'Research.canvas']) {
+            expect(await call('read_note', { note_id }), note_id).toEqual({
+                note_id: 'Maps/Research.canvas',
+                title: 'Research',
+                total_lines: 6,
+                lines_returned: '1-6',
+                link: '[[Maps/Research.canvas]]',
+                frontmatter: null,
+                file_type: 'canvas',
+                text: CANVAS,
+            });
+        }
+    });
+
+    it('reads a base as its YAML, by lines too', async () => {
+        expect(await call('read_note', { note_id: 'Reading.base' })).toMatchObject({ note_id: 'Reading.base', link: '[[Reading.base]]', file_type: 'base', text: BASE });
+        expect((await call('read_note', { note_id: 'Reading.base', start_line: 4 })).text).toBe('views:\n  - type: table\n    name: Books');
+    });
+
+    it('suggests one named without its extension', async () => {
+        expect(await call('read_note', { note_id: 'Research' })).toEqual({
+            error: expect.stringContaining('No note found for "Research"'),
+            did_you_mean: ['Maps/Research.canvas'],
+        });
+    });
+
+    it('keeps them out of an excluded folder, as notes', async () => {
+        excluded = ['Maps'];
+        expect(await call('read_note', { note_id: 'Maps/Research.canvas' })).toEqual({ error: expect.stringContaining('left out of AlphainO') });
+        expect((await call('read_note', { note_id: 'Research' })).did_you_mean).toBeUndefined();
+    });
+
+    it('is the only tool that takes them: the others work on Markdown notes', () => {
+        expect(locateNote(env.app, 'Maps/Research.canvas')).toEqual({
+            error: '"Maps/Research.canvas" is not a Markdown note: read_note reads it as text, but this tool works on Markdown notes only.',
+        });
+        expect(locateNote(env.app, 'Research.canvas')).toEqual({ error: expect.stringContaining('No note found') });
+        expect(locateNote(env.app, 'image.png', [], ['base', 'canvas'])).toEqual({ error: '"image.png" is not a Markdown note, so read_note cannot read it.' });
     });
 });
 

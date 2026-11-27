@@ -59,6 +59,7 @@ AlphainO 和 [AlphainZ](https://github.com/Alphainfix/AlphainZ) 是同一个助�
 ### 还有
 
 - **给段落写评论。** 右键就能给任意一段写评论。AlphainO 读评论时会连同对应的原文一起看，也能写评论、回复、标为已解决。评论每改一次就存一个小文件，所以在几台电脑之间同步也不会冲突。
+- **懂 Obsidian 自己的格式。** 内置了 Obsidian 官方 [Connector](https://obsidian.md/help/connectors) 里的 Markdown、Bases、Canvas 三个技能，任务用得上时才载入：写进笔记的双链、嵌入、callout 和属性都照 Obsidian 的写法，能用 `base` 代码块把 Bases 视图放进笔记，也读得懂库里的 `.base` 和 `.canvas` 文件。
 - **多台电脑一起用。** 对话和评论是库里的文件，跟着你的库同步（Obsidian Sync、iCloud 云盘等）；API key 只留在填它的那台电脑上。
 - **中英文界面。** 界面跟随 Obsidian 的语言。
 - **给其他 AI 工具用。** 在 设置 → Claude（MCP） 里打开后，Claude Code 可以直接通过 HTTP 连上，Claude Desktop 通过 AlphainO 放在插件文件夹里的一个小桥接文件连上。Obsidian 开着时，它们就能按关键词、意思或元数据搜索你的库，用文字描述找图，读笔记和链接，读写评论，改稿也要你审过。
@@ -155,7 +156,7 @@ npm test
 npm run smoke        # 在模拟的 Obsidian 里接一个假的模型服务，把构建好的插件从头到尾跑一遍
 ```
 
-和 AlphainZ 共用的代码复制在 [`plugin/shared/`](plugin/shared/README.md)。
+和 AlphainZ 共用的代码复制在 [`plugin/shared/`](plugin/shared/README.md)，Obsidian 的技能复制在 [`plugin/skills/`](plugin/skills/README.md)。
 
 ## 更新记录
 
@@ -170,5 +171,6 @@ AlphainO 是自由软件，和它共用代码的 AlphainZ、Beaver 一样，使�
 - [AlphainZ](https://github.com/Alphainfix/AlphainZ)：模型层、对话界面和模型设置。
 - [Beaver](https://github.com/jlegewie/beaver-zotero)，Joscha Legewie：AlphainZ 所基于的插件。
 - Orbit Comments：评论的锚点和文件格式（MIT 许可，版权声明保留在 `plugin/src/comments/anchor.ts`）。
+- [Obsidian skills](https://github.com/obsidianmd/obsidian-skills)，Steph Ango：`plugin/skills/` 里的 Markdown、Bases 和 Canvas 技能（MIT 许可，许可证保留在那个文件夹里）。
 
 对比表来源：[Copilot](https://github.com/logancyang/obsidian-copilot)、[Claudian](https://github.com/YishenTu/claudian)、[Smart Connections](https://github.com/brianpetro/obsidian-smart-connections) 和 [smartconnections.app](https://smartconnections.app)、[YOLO](https://github.com/Lapis0x0/obsidian-yolo)；下载量来自 Obsidian 的 [community-plugin-stats.json](https://github.com/obsidianmd/obsidian-releases)。

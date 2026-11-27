@@ -184,6 +184,8 @@ const context = await esbuild.context({
     "process.env.NODE_ENV": JSON.stringify(production ? "production" : "development"),
   },
   jsx: "transform",
+  // Obsidian's skills (skills/, see src/skills) are bundled as their text.
+  loader: { ".md": "text" },
   sourcemap: production ? false : "inline",
   minify: production,
   treeShaking: true,

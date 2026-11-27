@@ -112,6 +112,7 @@ const READ_NOTE: ToolSchema = {
         "Read a note in the user's vault. This is how you read what they wrote: prefer it to guessing from the passages a search returns. " +
         'Read the whole note, one section with `heading`, or a line range with `start_line` and `end_line`. ' +
         `A long note comes back truncated, and the result says exactly which lines it contains; ask again with \`start_line\` to read further. The note's properties (frontmatter) come with it. ` +
+        'It reads a base (.base) or a canvas (.canvas) too, as text, when you name the file with its extension. ' +
         'Cite the note with the `link` returned.',
     parameters: {
         type: 'object',
@@ -404,20 +405,33 @@ async function noteSearchByTopic(options: VaultToolsOptions, args: Record<string
 
 export type Located = { file: TFile; heading: string } | { error: string; did_you_mean?: string[] };
 
+/**
+ * The files besides Markdown notes that `read_note` reads, as text: bases and
+ * canvases, whose formats Obsidian's skills describe (src/skills). The other
+ * tools work on Markdown notes only.
+ */
+export const TEXT_FILE_EXTENSIONS: readonly string[] = ['base', 'canvas'];
+
+function isTextFile(file: TFile): boolean {
+    return TEXT_FILE_EXTENSIONS.includes(file.extension.toLowerCase());
+}
+
 /** What a tool answers for a note in an excluded folder: as if it were not there to read. */
 export const EXCLUDED_NOTE_ERROR = 'That note is in a folder left out of AlphainO (Settings → Excluded folders), so it cannot be read or changed.';
 
 /**
  * The note a request names: a note id, a path, a bare name, or a wikilink with an optional heading. A note in
- * one of `excluded` (the folders the user left out) is refused, and never suggested.
+ * one of `excluded` (the folders the user left out) is refused, and never suggested. Files with one of the
+ * extensions in `also` (`read_note`'s bases and canvases) are found too, named with their extension.
  */
-export function locateNote(app: App, request: string, excluded: readonly string[] = []): Located {
-    const found = locateAnyNote(app, request, excluded);
+export function locateNote(app: App, request: string, excluded: readonly string[] = [], also: readonly string[] = []): Located {
+    const found = locateAnyNote(app, request, excluded, also);
     if ('file' in found && isExcludedPath(found.file.path, excluded)) return { error: EXCLUDED_NOTE_ERROR };
     return found;
 }
 
-function locateAnyNote(app: App, request: string, excluded: readonly string[]): Located {
+function locateAnyNote(app: App, request: string, excluded: readonly string[], also: readonly string[]): Located {
+    const wanted = (file: TFile) => isMarkdown(file) || also.includes(file.extension.toLowerCase());
     let link = request.trim().replace(/^[`'"]+|[`'"]+$/g, '');
     const wiki = /^\[\[([\s\S]*)\]\]$/.exec(link);
     if (wiki) link = wiki[1];
@@ -437,16 +451,22 @@ function locateAnyNote(app: App, request: string, excluded: readonly string[]): 
         const found = app.vault.getAbstractFileByPath(candidate);
         if (!found) continue;
         if (!isFile(found)) return { error: `"${candidate}" is a folder. list_notes with folder="${candidate}" shows what is in it.` };
-        if (!isMarkdown(found)) return { error: `"${candidate}" is not a Markdown note, so read_note cannot read it.` };
+        if (!wanted(found)) {
+            return {
+                error: isTextFile(found)
+                    ? `"${candidate}" is not a Markdown note: read_note reads it as text, but this tool works on Markdown notes only.`
+                    : `"${candidate}" is not a Markdown note, so read_note cannot read it.`,
+            };
+        }
         return { file: found, heading };
     }
     const resolved = app.metadataCache.getFirstLinkpathDest(path.replace(/\.md$/i, ''), app.workspace.getActiveFile()?.path ?? '');
-    if (resolved && isMarkdown(resolved)) return { file: resolved, heading };
+    if (resolved && wanted(resolved)) return { file: resolved, heading };
 
     const name = path.slice(path.lastIndexOf('/') + 1).replace(/\.md$/i, '').toLowerCase();
-    const similar = app.vault
-        .getMarkdownFiles()
-        .filter((file) => name !== '' && file.basename.toLowerCase().includes(name) && !isExcludedPath(file.path, excluded))
+    const bare = also.reduce((stem, extension) => (stem.endsWith(`.${extension}`) ? stem.slice(0, -extension.length - 1) : stem), name);
+    const similar = (also.length > 0 ? app.vault.getFiles().filter(wanted) : app.vault.getMarkdownFiles())
+        .filter((file) => bare !== '' && file.basename.toLowerCase().includes(bare) && !isExcludedPath(file.path, excluded))
         .sort((a, b) => a.basename.length - b.basename.length)
         .slice(0, MAX_SUGGESTIONS)
         .map((file) => linkTarget(file.path));
@@ -490,7 +510,7 @@ async function readNote(options: VaultToolsOptions, args: Record<string, unknown
     // `path` is accepted for `note_id`.
     const request = textArg(args.note_id) || textArg(args.path);
     if (request === '') return missing('read_note', 'note_id');
-    const located = locateNote(app, request, options.getExcludedFolders?.() ?? []);
+    const located = locateNote(app, request, options.getExcludedFolders?.() ?? [], TEXT_FILE_EXTENSIONS);
     if ('error' in located) return located;
     const { file } = located;
     const heading = textArg(args.heading) || located.heading;
@@ -539,6 +559,8 @@ async function readNote(options: VaultToolsOptions, args: Record<string, unknown
         lines_returned: start === last ? `${start}` : `${start}-${last}`,
         link: wikilink(file.path, heading && !note ? heading : ''),
         frontmatter: frontmatterOf(app, file),
+        // A base or a canvas: its text is YAML or JSON (src/skills has their formats).
+        ...(isMarkdown(file) ? {} : { file_type: file.extension.toLowerCase() }),
         ...(truncated
             ? {
                   truncated: true,
